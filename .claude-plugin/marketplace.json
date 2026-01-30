@@ -1,10 +1,14 @@
 {
-  "name": "FZ Workflow Marketplace",
+  "name": "fz-workflow-marketplace",
   "description": "FZ Workflow System - AI-assisted development workflow plugins",
+  "owner": {
+    "name": "itsferro"
+  },
   "plugins": [
     {
       "name": "fz-workflow",
-      "path": ".."
+      "description": "Structured AI-assisted development workflow with phases, reflection loops, and quality gates",
+      "source": ".."
     }
   ]
 }
