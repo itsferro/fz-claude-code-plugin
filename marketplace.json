@@ -1,0 +1,10 @@
+{
+  "name": "FZ Workflow Marketplace",
+  "description": "FZ Workflow System - AI-assisted development workflow plugins",
+  "plugins": [
+    {
+      "name": "fz-workflow",
+      "path": "."
+    }
+  ]
+}
