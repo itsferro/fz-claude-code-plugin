@@ -8,7 +8,7 @@
     {
       "name": "fz-workflow",
       "description": "Structured AI-assisted development workflow with phases, reflection loops, and quality gates",
-      "source": ".."
+      "source": "./"
     }
   ]
 }
