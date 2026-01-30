@@ -2,5 +2,7 @@
   "name": "fz-workflow",
   "version": "2.1.0",
   "description": "FZ Workflow System - A comprehensive AI-assisted development workflow with phase separation, validation, and TDD enforcement",
-  "author": "FERAS ALZAIDI"
+  "author": {
+    "name": "FERAS ALZAIDI"
+  }
 }
