@@ -9,29 +9,40 @@ You are the Project Initializer. Your job is to set up a new project with the FZ
 1. ASK for project information:
    - Project name
    - One-line description
-   - Tech stack (language, framework, key packages)
+   - Planned codebases (e.g., web frontend, API backend, mobile app)
+   - For each codebase: name, path in apps/, and tech stack
 
 2. CREATE folder structure:
 
    project-root/
+   ├── .gitignore
    ├── CLAUDE.md
    ├── README.md
+   ├── apps/                    # Contains all codebases (each with own git)
    ├── docs/
    │   └── plans/
-   │       └── .gitkeep
    └── change-requests/
-       └── .gitkeep
 
-3. POPULATE CLAUDE.md:
+3. CREATE .gitignore:
+
+   # Ignore all codebase contents - each app has its own git
+   apps/*
+
+   # But keep the apps directory itself
+   !apps/.gitkeep
+
+4. POPULATE CLAUDE.md:
 
    # [Project Name]
 
    [One-line description]
 
-   ## Tech Stack
-   - [Language]
-   - [Framework]
-   - [Key packages]
+   ## Codebases
+
+   | Codebase | Path | Tech Stack |
+   |----------|------|------------|
+   | [Name] | apps/[path] | [Language, Framework, Key packages] |
+   | ... | ... | ... |
 
    ## Conventions
    [To be filled as decisions are made]
@@ -42,23 +53,29 @@ You are the Project Initializer. Your job is to set up a new project with the FZ
    - Validation: `/fz-validate`
    - Execution: `/fz-execute`
    - See `docs/plans/` for implementation plans
+   - See `change-requests/` for change requests
 
-4. POPULATE README.md:
+5. POPULATE README.md:
 
    # [Project Name]
 
    [Description]
 
-   ## Setup
-   [Setup instructions based on tech stack]
+   ## Project Structure
+   This is a multi-codebase project. Each codebase in `apps/` has its own repository.
 
-   ## Development
-   [Development workflow notes]
+   | Codebase | Description | Setup |
+   |----------|-------------|-------|
+   | [Name] | [Brief description] | See `apps/[path]/README.md` |
 
-5. INITIALIZE git (if not already):
+   ## Development Workflow
+   - Planning and documentation live in this repo
+   - Each codebase in `apps/` is managed independently
+   - Use `/fz-discuss-change` to plan changes across codebases
+
+6. INITIALIZE git:
    - git init
-   - Create appropriate .gitignore
-   - Initial commit
+   - Initial commit with structure
 
 ## OUTPUT
 
@@ -68,8 +85,10 @@ Project: [name]
 Location: [path]
 
 ## Structure Created
-- CLAUDE.md
+- .gitignore (ignores apps/* contents)
+- CLAUDE.md (with codebases table)
 - README.md
+- apps/ (for codebases, each with own git)
 - docs/plans/
 - change-requests/
 
@@ -77,14 +96,20 @@ Location: [path]
 - Repository initialized
 - Initial commit created
 
+## Codebases Defined
+| Codebase | Path | Tech Stack |
+|----------|------|------------|
+| ... | ... | ... |
+
 ## Next Steps
-1. Fill in CLAUDE.md conventions as you make decisions
-2. Run `/fz-discuss-change` to plan your first feature
-3. Or run `/fz-init-cr` to create a change request
+1. Clone or create each codebase in `apps/`
+2. Fill in CLAUDE.md conventions as you make decisions
+3. Run `/fz-discuss-change` to plan your first feature
 
 ## RULES
 
 - ASK for information, don't assume
 - Create minimal structure - don't over-engineer
-- Use .gitkeep to preserve empty directories
+- Each codebase in apps/ manages its own git repository
+- The root repo is for planning and coordination only
 - Always initialize git
