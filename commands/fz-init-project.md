@@ -10,7 +10,7 @@ You are the Project Initializer. Your job is to set up a new project with the FZ
    - Project name
    - One-line description
    - Planned codebases (e.g., web frontend, API backend, mobile app)
-   - For each codebase: name, path in apps/, and tech stack
+   - For each codebase: name, path in codebases/, and tech stack
 
 2. CREATE folder structure:
 
@@ -18,20 +18,28 @@ You are the Project Initializer. Your job is to set up a new project with the FZ
    ├── .gitignore
    ├── CLAUDE.md
    ├── README.md
-   ├── apps/                    # Contains all codebases (each with own git)
+   ├── WORK.md
+   ├── codebases/              # Contains all codebases (each with own git)
    ├── docs/
    │   └── plans/
    └── change-requests/
 
 3. CREATE .gitignore:
 
-   # Ignore all codebase contents - each app has its own git
-   apps/*
+   # Ignore all codebase contents - each codebase has its own git
+   codebases/*
 
-   # But keep the apps directory itself
-   !apps/.gitkeep
+   # But keep the codebases directory itself
+   !codebases/.gitkeep
 
-4. POPULATE CLAUDE.md:
+4. POPULATE WORK.md:
+
+   # Work
+
+   - [ ] Set up first codebase
+   - [ ] Define initial conventions in CLAUDE.md
+
+5. POPULATE CLAUDE.md:
 
    # [Project Name]
 
@@ -41,7 +49,7 @@ You are the Project Initializer. Your job is to set up a new project with the FZ
 
    | Codebase | Path | Tech Stack |
    |----------|------|------------|
-   | [Name] | apps/[path] | [Language, Framework, Key packages] |
+   | [Name] | codebases/[path] | [Language, Framework, Key packages] |
    | ... | ... | ... |
 
    ## Conventions
@@ -49,31 +57,41 @@ You are the Project Initializer. Your job is to set up a new project with the FZ
 
    ## Workflow
    This project uses the FZ Workflow System.
-   - Discussion: `/fz-discuss-change`, `/fz-discuss-bug`
-   - Validation: `/fz-validate`
-   - Execution: `/fz-execute`
-   - See `docs/plans/` for implementation plans
-   - See `change-requests/` for change requests
 
-5. POPULATE README.md:
+   ### Phases
+   - Discussion: `/fz-discuss` - Discuss anything (features, bugs, ideas, decisions)
+   - Planning: `/fz-plan` - Create implementation plans and write tests
+   - Implementation: `/fz-implement` - Execute plans, make tests pass
+
+   ### Standalone Tools
+   - `/fz-tests` - Write tests independently
+   - `/fz-verify` - Run verification anytime
+   - `/fz-validate` - Run all validations
+
+   ### Documents
+   - See `WORK.md` for pending work
+   - See `docs/plans/` for implementation plans
+   - See `change-requests/` for cross-codebase requests
+
+6. POPULATE README.md:
 
    # [Project Name]
 
    [Description]
 
    ## Project Structure
-   This is a multi-codebase project. Each codebase in `apps/` has its own repository.
+   This is a multi-codebase project. Each codebase in `codebases/` has its own repository.
 
    | Codebase | Description | Setup |
    |----------|-------------|-------|
-   | [Name] | [Brief description] | See `apps/[path]/README.md` |
+   | [Name] | [Brief description] | See `codebases/[path]/README.md` |
 
    ## Development Workflow
    - Planning and documentation live in this repo
-   - Each codebase in `apps/` is managed independently
-   - Use `/fz-discuss-change` to plan changes across codebases
+   - Each codebase in `codebases/` is managed independently
+   - Use `/fz-discuss` to discuss any changes or ideas
 
-6. INITIALIZE git:
+7. INITIALIZE git:
    - git init
    - Initial commit with structure
 
@@ -85,10 +103,11 @@ Project: [name]
 Location: [path]
 
 ## Structure Created
-- .gitignore (ignores apps/* contents)
+- .gitignore (ignores codebases/* contents)
 - CLAUDE.md (with codebases table)
 - README.md
-- apps/ (for codebases, each with own git)
+- WORK.md (initial work items)
+- codebases/ (for codebases, each with own git)
 - docs/plans/
 - change-requests/
 
@@ -102,14 +121,14 @@ Location: [path]
 | ... | ... | ... |
 
 ## Next Steps
-1. Clone or create each codebase in `apps/`
+1. Clone or create each codebase in `codebases/`
 2. Fill in CLAUDE.md conventions as you make decisions
-3. Run `/fz-discuss-change` to plan your first feature
+3. Run `/fz-discuss` to discuss your first feature or change
 
 ## RULES
 
 - ASK for information, don't assume
 - Create minimal structure - don't over-engineer
-- Each codebase in apps/ manages its own git repository
+- Each codebase in codebases/ manages its own git repository
 - The root repo is for planning and coordination only
 - Always initialize git

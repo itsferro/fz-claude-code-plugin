@@ -1,6 +1,6 @@
 # FZ Workflow System Plugin
 
-> **Version:** 2.1
+> **Version:** 3.0
 > **Author:** FERAS ALZAIDI
 
 A comprehensive AI-assisted development workflow built on top of Claude Code.
@@ -14,30 +14,33 @@ A comprehensive AI-assisted development workflow built on top of Claude Code.
 | Law | Description |
 |-----|-------------|
 | Discussion = Documents Only | Never write code during discussion phase |
-| Implementation = Code Only | Never create new plans during implementation phase |
+| Planning = Tests + Plans Only | Write failing tests, never implementation |
+| Implementation = Code Only | Make tests pass, never create new plans |
 | Evidence Before Claims | Never claim success without running verification |
 | Libraries First | Always check for existing solutions before building custom |
 
-### Output-Based Separation
+### Three Phases
 
-| Phase | Commands | Output | Never Produces |
-|-------|----------|--------|----------------|
-| Discussion | `/fz-discuss-*` | Documents, plans, specs | Code changes |
-| Initialization | `/fz-init-*` | First drafts to refine | Finalized documents |
-| Assessment | `/fz-assess-*` | Reports | Modifications |
-| Maker | `/fz-make-*` | Artifacts (diagrams, prototypes) | Code changes |
-| Implementation | `/fz-execute` | Code, tests, commits | New plans or specs |
+| Phase | Command | Purpose | Output | Never Produces |
+|-------|---------|---------|--------|----------------|
+| Discussion | `/fz-discuss` | Decisions, brainstorming, any discussion | Updated WORK.md, CLAUDE.md, docs | Code |
+| Planning | `/fz-plan` | Define how to implement, write failing tests | Plan document, failing tests | Implementation code |
+| Implementation | `/fz-implement` | Execute plan, make tests pass | Working code, passing tests | New plans or decisions |
+
+### Permission Rule
+
+Commands **without** "assess" or "init" in name require user confirmation before making changes.
+
+Commands **with** "assess" or "init" can run automatically (read-only or draft generation).
 
 ---
 
 ## Command Categories
 
-### Discussion Commands
-- `/fz-discuss-change` - Plan features, refactors, or any change (includes library check)
-- `/fz-discuss-bug` - Diagnose bugs and plan fixes (includes solution research)
-
-### Implementation Commands
-- `/fz-execute` - Execute an approved plan or change request
+### Phase Commands (The Workflow)
+- `/fz-discuss` - Discuss anything: features, bugs, ideas, decisions, brainstorming, project setup
+- `/fz-plan` - Create implementation plan and write failing tests (RED phase)
+- `/fz-implement` - Execute plan, make tests pass (GREEN phase)
 
 ### Initialization Commands (Draft Generation)
 - `/fz-init-project` - Generate project structure
@@ -45,8 +48,17 @@ A comprehensive AI-assisted development workflow built on top of Claude Code.
 - `/fz-init-plan` - Generate an implementation plan first draft
 - `/fz-init-spec` - Generate a specification first draft
 
+### Standalone Skills (Usable Anytime)
+- `/fz-tests` - Write tests independently
+- `/fz-verify` - Run verification (tests, linter, build)
+- `/fz-cr` - Create cross-codebase change request
+- `/fz-review` - Code quality review
+- `/fz-audit` - Audit against specs
+- `/fz-diagnose` - Bug investigation
+- `/fz-document` - Documentation generation
+
 ### Assessment Skills (/fz-assess-*)
-- `/fz-validate` - Run all 3 validations
+- `/fz-validate` - Run all validations
 - `/fz-assess-impact` - Analyze change impact
 - `/fz-assess-logic` - Check business rules
 - `/fz-assess-feasibility` - Check codebase state
@@ -61,28 +73,51 @@ A comprehensive AI-assisted development workflow built on top of Claude Code.
 - `/fz-make-mermaid-diagram` - Create diagrams
 - `/fz-make-prototype` - Create UI mockups
 
-### Utility Skills
-- `/fz-tests` - Run tests
-- `/fz-review` - Code quality review
-- `/fz-audit` - Audit against specs
-- `/fz-diagnose` - Bug investigation
-- `/fz-document` - Documentation generation
+---
+
+## Project Structure
+
+Projects using this workflow should have:
+
+```
+project-root/
+├── CLAUDE.md              # Project decisions, conventions
+├── WORK.md                # Checklist of pending work
+├── README.md
+├── .gitignore
+├── codebases/             # Contains all codebases (each with own git)
+├── docs/
+│   └── plans/             # Implementation plans
+└── change-requests/       # Cross-codebase requests
+```
 
 ---
 
 ## Workflow Rules
 
-### TDD Cycle
-1. Test MUST fail first (RED)
-2. Write MINIMUM code to pass (GREEN)
-3. Refactor only with tests green
-4. Repeat for each piece of functionality
+### Discussion Phase
+- Can discuss ANYTHING: features, bugs, ideas, project setup, brainstorming
+- Updates WORK.md with work items
+- Updates CLAUDE.md with decisions/conventions
+- Updates other docs as needed
+- NEVER writes code
 
-### Branching Strategy
-- `feature/<name>` - New features
-- `fix/<bug-id>` - Bug fixes
-- `refactor/<name>` - Refactoring
-- `change/<name>` - Other changes
+### Planning Phase
+- Creates detailed implementation plan
+- Writes failing tests (RED)
+- Resolves ALL ambiguity - implementation should have no questions
+- NEVER writes implementation code
+
+### Implementation Phase
+- Follows the plan exactly
+- Makes tests pass (GREEN)
+- No decisions - just execution
+- Updates WORK.md when done
+
+### Refactoring
+- Refactoring is a SEPARATE change
+- Goes through full cycle: discuss → plan → implement
+- Not part of implementation phase
 
 ### Verification Rules
 1. Evidence before claims - Run tests, show output
@@ -99,18 +134,21 @@ A comprehensive AI-assisted development workflow built on top of Claude Code.
 - Skipping library/package research
 - Building custom when a library exists
 - Making decisions without using AskUserQuestion
+- Forgetting to update WORK.md
 
-### Validation Phase
-- Skipping validation before implementation
-- Ignoring validation failures
+### Planning Phase
+- Writing implementation code
+- Creating tests that pass immediately
+- Leaving ambiguity for implementation
+- Skipping test writing when applicable
 
 ### Implementation Phase
 - Creating new plans
-- Modifying approved plans
-- Skipping TDD
+- Making decisions
+- "While I'm here" additions
 - Claiming success without verification
 
 ### General
-- Mixing discussion and implementation
+- Mixing phases
 - Committing to main directly
 - Reinventing the wheel
