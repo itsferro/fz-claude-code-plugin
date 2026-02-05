@@ -1,103 +1,119 @@
 ---
-description: Create a cross-codebase change request
+description: Create a change request directly (without full discussion)
 ---
 
-You are the Change Request Creator. Create formal change requests for cross-codebase communication.
+You are the Change Request Creator. Create change requests for when you need to request changes without going through full discussion.
 
 ## WHEN TO USE
 
-Change requests are for communication BETWEEN codebases/teams:
-- Frontend needs backend to add endpoints
-- Backend needs frontend to update API calls
-- Mobile needs backend to support new format
-- Any codebase needs something from another codebase
+Use `/fz-cr` instead of `/fz-discuss` when:
+- You already know what's needed (no discussion required)
+- Follow-up change discovered during implementation
+- Simple, obvious request
+- Cross-codebase dependency identified
+- Quick request to another team
 
-This is NOT for planning your own work - use `/fz-plan` for that.
+Use `/fz-discuss` when:
+- Need to think through the problem
+- Need to explore options
+- Need to make decisions about approach
+
+## WHAT IS A CHANGE REQUEST?
+
+- **CR = The "What" and "Why"** (Project-level)
+- Lives in `change-requests/`
+- Describes what needs to be done and why
+- NOT how to do it (that's the Plan)
+- One CR can result in multiple Plans (one per affected codebase)
 
 ## PROCESS
 
-1. UNDERSTAND the request:
-   - What codebase is REQUESTING? (the requester)
-   - What codebase should FULFILL? (the target)
-   - What is needed?
+1. GATHER information:
+   - What needs to be done?
    - Why is it needed?
-   - What is the priority/timeline?
+   - Which codebases are affected?
+   - What are the requirements?
+   - What are the acceptance criteria?
 
-2. GATHER details:
-   - Specific requirements
-   - API contracts or interfaces needed
-   - Data formats
-   - Any constraints
+2. CREATE the CR file:
+   - Location: `change-requests/CR-YYYY-MM-DD-NNN-<name>.md`
+   - Use the structure below
 
-3. USE `/fz-init-cr` to generate the draft
+3. UPDATE WORK.md:
+   - Add item for each affected codebase to create a plan
 
-4. REVIEW and refine with user
-
-5. SAVE to `change-requests/CR-YYYY-MM-DD-NNN.md`
-
-6. UPDATE WORK.md:
-   - Add item for the target codebase to fulfill the CR
+4. COMMIT the CR:
+   - Commit message: `docs: add CR for <name>`
 
 ## CHANGE REQUEST STRUCTURE
 
 ```markdown
-# Change Request: [Title]
+# CR-YYYY-MM-DD-NNN: [Title]
 
-**CR ID:** CR-YYYY-MM-DD-NNN
-**Date:** YYYY-MM-DD
-**Status:** Open / In Progress / Completed / Rejected
-
-## Requester
-- **Codebase:** [requesting codebase name]
-- **Contact:** [who to ask questions]
-
-## Target
-- **Codebase:** [target codebase name]
+## Status
+Open | In Progress | Completed | Rejected
 
 ## Summary
-[Brief description of what is needed]
+[Brief description of what needs to be done and why]
+
+## Background
+[Context - why is this needed? What problem does it solve?]
 
 ## Requirements
 1. [Requirement 1]
 2. [Requirement 2]
-...
+3. [Requirement 3]
 
-## Technical Details
-[API contracts, data formats, interfaces, etc.]
-
-## Priority
-[Low / Medium / High / Critical]
-
-## Timeline
-[When is this needed by?]
-
-## Context
-[Why is this needed? What problem does it solve?]
+## Affected Codebases
+- [ ] [codebase 1] - [brief description of what's needed]
+- [ ] [codebase 2] - [brief description of what's needed]
 
 ## Acceptance Criteria
 - [ ] [Criterion 1]
 - [ ] [Criterion 2]
+- [ ] [Criterion 3]
+
+## Priority
+Low | Medium | High | Critical
+
+## Notes
+[Any additional context, links, references]
 ```
 
 ## OUTPUT
 
 ✅ CHANGE REQUEST CREATED
 
-**CR:** `change-requests/CR-YYYY-MM-DD-NNN.md`
+## CR
+`change-requests/CR-YYYY-MM-DD-NNN-<name>.md`
 
-**From:** [requester codebase]
-**To:** [target codebase]
+## Summary
+[What the CR is for]
 
-**Summary:** [what is requested]
+## Affected Codebases
+- [codebase 1]
+- [codebase 2]
 
-**Next Steps:**
-1. Share CR with target team/codebase
-2. Target runs `/fz-discuss` to discuss the request
-3. Target runs `/fz-plan` → `/fz-implement` to fulfill
+## WORK.md Updated
+- Added: Plan for [codebase 1]
+- Added: Plan for [codebase 2]
+
+## Next Steps
+1. Run `/fz-plan` for [codebase 1]
+2. Run `/fz-plan` for [codebase 2]
+3. Run `/fz-implement` for each after plans approved
 
 ## RULES
 
-1. **CRs are for cross-codebase communication** - Not for self-planning
-2. **Be specific** - Vague CRs create confusion
-3. **Include acceptance criteria** - How will fulfillment be verified?
-4. **Update WORK.md** - Track that this CR needs to be fulfilled
+1. **CRs are project-level** - Not codebase-specific
+2. **CRs describe WHAT, not HOW** - Implementation details go in Plans
+3. **One CR, multiple Plans** - Each affected codebase gets its own Plan
+4. **Update WORK.md** - Track that plans need to be created
+5. **ASK if unclear** - Get the requirements right
+
+## ANTI-PATTERNS TO AVOID
+
+- Putting implementation details in CR (that's for the Plan)
+- Forgetting to list all affected codebases
+- Vague acceptance criteria
+- Forgetting to update WORK.md
