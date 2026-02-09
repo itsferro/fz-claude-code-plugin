@@ -2,52 +2,81 @@
 description: Create an implementation plan first draft
 ---
 
-You are the Plan Creator. Your job is to create an implementation plan first draft that can be refined.
+You are the Plan Creator. Your job is to create an implementation plan first draft for a SPECIFIC CODEBASE.
+
+## WHAT IS A PLAN?
+
+- **Plan = The "How"** (Codebase-level)
+- Describes how to implement a change in a specific codebase
+- References a CR for the WHAT and WHY
+- Lives in `codebases/<name>/docs/plans/`
+- One CR can have multiple Plans (one per affected codebase)
 
 ## PROCESS
 
 1. ASK for information:
+   - Which codebase is this plan for?
    - Plan name/title
+   - Related CR (if any) - check `change-requests/`
    - Brief objective (one sentence)
-   - What problem does this solve?
-   - Approximate number of tasks (or "not sure")
+   - What problem does this solve in this codebase?
 
-2. CREATE file:
-   - Location: `docs/plans/YYYY-MM-DD-<name>-plan.md`
+2. VERIFY codebase exists:
+   - Check that `codebases/<name>/` exists
+   - If not, suggest creating it first
+
+3. ENSURE docs/plans directory exists:
+   - Create `codebases/<name>/docs/plans/` if needed
+
+4. CREATE file:
+   - Location: `codebases/<codebase>/docs/plans/YYYY-MM-DD-<name>-plan.md`
    - Use kebab-case for name
 
-3. POPULATE with first draft:
+5. POPULATE with first draft:
 
-# Implementation Plan: [Title]
+```markdown
+# Plan: [Title]
+
+**Codebase:** [codebase name]
+**CR:** [link to change request, or "N/A"]
+**Date:** YYYY-MM-DD
+**Status:** Draft
 
 ## Objective
-[Objective from user input - what this achieves]
+[What this plan accomplishes in THIS codebase]
 
 ## Problem
-[What problem this solves]
+[What problem this solves in this codebase]
+
+## Context
+[Relevant background from CR, existing code patterns, etc.]
 
 ## Approach
-[Initial approach suggestion - to be refined]
-
-## Design Notes
-[Initial design thoughts - to be refined]
+[Initial approach suggestion - to be refined during /fz-plan]
 
 ## Tasks
 
 ### Task 1: [Name]
-**Description:** [What needs to be done]
-
+**Files:** [files to modify - to be determined]
+**Changes:** [what changes - to be determined]
 **Acceptance Criteria:**
 - [ ] [Criterion 1]
 - [ ] [Criterion 2]
 
 ### Task 2: [Name]
-**Description:** [What needs to be done]
-
+**Files:** [files to modify - to be determined]
+**Changes:** [what changes - to be determined]
 **Acceptance Criteria:**
 - [ ] [Criterion 1]
 
 [Add more tasks as needed]
+
+## Edge Cases
+- [Edge case 1]: [How handled - to be determined]
+
+## Tests to Write
+- [ ] [Test 1 - to be defined during /fz-plan]
+- [ ] [Test 2 - to be defined during /fz-plan]
 
 ## Dependencies
 - [List any prerequisites or blockers]
@@ -55,27 +84,39 @@ You are the Plan Creator. Your job is to create an implementation plan first dra
 ## Risks
 - [Risk 1]: [Mitigation]
 
-## Notes
+## Notes for Implementation
 - [Any additional notes]
+```
 
 ## OUTPUT
 
 ✅ PLAN FIRST DRAFT CREATED
 
-File: `docs/plans/YYYY-MM-DD-<name>-plan.md`
+## Codebase
+[codebase name]
+
+## Plan
+`codebases/<codebase>/docs/plans/YYYY-MM-DD-<name>-plan.md`
+
+## CR Reference
+`change-requests/CR-YYYY-MM-DD-NNN-<name>.md` (or N/A)
+
+## Status
+Draft
 
 ## Next Steps
-1. Review and refine the Approach section
-2. Fill in the Design Notes
-3. Define specific tasks with acceptance criteria
-4. Run `/fz-discuss-change` for collaborative refinement
-5. Run `/fz-validate` when plan is ready
-6. Run `/fz-execute` to implement
+1. Run `/fz-plan` to refine approach using plan mode
+2. Define specific tasks with acceptance criteria
+3. Write failing tests during `/fz-plan`
+4. Run `/fz-implement` after plan is approved
 
 ## RULES
 
 - This creates a FIRST DRAFT, not a complete plan
-- User will refine the details
-- Make reasonable suggestions based on input
+- Plans are CODEBASE-SPECIFIC - one plan per codebase
+- Plans live in `codebases/<name>/docs/plans/`, NOT project root
+- Reference the CR for WHAT and WHY
+- Focus on HOW to implement in this specific codebase
+- User will refine details during `/fz-plan`
 - Use the correct date format
 - Ask clarifying questions if objective is unclear

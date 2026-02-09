@@ -19,6 +19,8 @@
 - [x] Update `/fz-implement` - reference plans from codebase's docs/plans/
 - [x] Update `/fz-cr` - clarify project-level, what vs how
 - [x] Update CLAUDE.md - version 3.1, CR vs Plan distinction
+- [x] Update `/fz-init-cr` - project-level, what+why, list affected codebases
+- [x] Update `/fz-init-plan` - codebase-specific, how, reference CR
 
 ## Pending
 
@@ -29,7 +31,6 @@
 
 - [ ] Documentation phase - should it be a phase or stay as standalone tool?
 - [ ] Steps within each phase - detailed step definitions
-- [ ] Update `/fz-init-cr` and `/fz-init-plan` to match new structure
 
 ## Notes & Decisions
 
