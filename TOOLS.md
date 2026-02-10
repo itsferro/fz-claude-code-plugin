@@ -210,7 +210,7 @@ Tools know which phase they belong to and follow phase rules.
 
 ## Summary
 
-**10 Commands:**
+**11 Commands:**
 - 4 Phase commands
 - 1 Initialization command
 - 2 Orchestrators

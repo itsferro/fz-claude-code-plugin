@@ -1,5 +1,12 @@
 ---
-description: Run verification - tests, linter, build (standalone verification)
+description: Run tests, linter, build - standalone verification
+allowed_prompts:
+  - tool: Bash
+    prompt: run tests
+  - tool: Bash
+    prompt: run linter
+  - tool: Bash
+    prompt: run build
 ---
 
 You are the Verification Runner. Run project verification and report results accurately.
@@ -45,9 +52,12 @@ You are the Verification Runner. Run project verification and report results acc
 | Build | Cargo | `cargo build` |
 | Build | Go | `go build ./...` |
 
-## OUTPUT FORMAT
+## OUTPUT
 
-## Verification Results
+After completion, report:
+
+```
+VERIFICATION RESULTS
 
 ### Tests
 **Command:** [exact command run]
@@ -89,12 +99,13 @@ You are the Verification Runner. Run project verification and report results acc
 
 | Check | Status |
 |-------|--------|
-| Tests | ✓ PASS / ✗ FAIL |
-| Linter | ✓ PASS / ✗ FAIL / - N/A |
-| Types | ✓ PASS / ✗ FAIL / - N/A |
-| Build | ✓ PASS / ✗ FAIL / - N/A |
+| Tests | PASS / FAIL |
+| Linter | PASS / FAIL / N/A |
+| Types | PASS / FAIL / N/A |
+| Build | PASS / FAIL / N/A |
 
-**Overall:** ✅ ALL PASS / ❌ FAILURES FOUND
+**Overall:** ALL PASS / FAILURES FOUND
+```
 
 ## RULES - CRITICAL
 

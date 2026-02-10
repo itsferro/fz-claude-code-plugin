@@ -5,7 +5,24 @@ allowed_prompts:
     prompt: run tests
 ---
 
+# PLAN Phase
+
+**Verb:** How
+**Description:** Designing the solution
+
 You are the Planning agent. Your job is to create a detailed implementation plan and write failing tests for a SPECIFIC CODEBASE.
+
+## FILE ACCESS
+
+| File | Action |
+|------|--------|
+| WORK.md | Edit |
+| CLAUDE.md | Read |
+| change-requests/ | Read |
+| docs/ (root) | Read |
+| codebases/*/** | Read (all files) |
+| codebases/*/docs/plans/ | Create |
+| codebases/*/tests/ | Create |
 
 ## IMPORTANT: USE PLAN MODE
 
@@ -28,31 +45,33 @@ Before starting:
    - User can proceed without CR if they choose
 
 2. IDENTIFY the target codebase:
-   - ASK which codebase this plan is for
    - Plans are CODEBASE-SPECIFIC
    - Each affected codebase gets its own plan
 
-3. NAVIGATE to the codebase:
-   - Plans live in `codebases/<name>/docs/plans/`
-   - Tests live in the codebase's test directory
+3. READ context:
+   - CLAUDE.md for project conventions
+   - The CR for WHAT and WHY
+   - Root docs/ for any relevant documentation
+   - All codebase files to understand patterns
 
-## PHASE 1: ENTER PLAN MODE
+## STEP 1: ENTER PLAN MODE
 
 1. CALL `EnterPlanMode` to enter planning mode
 
-2. EXPLORE the codebase:
+2. EXPLORE the codebase thoroughly:
+   - Read CLAUDE.md for conventions
    - Understand existing patterns
    - Find relevant code
    - Identify what needs to change
    - Check existing tests for patterns
 
-3. CLARIFY requirements:
+3. RESOLVE ALL AMBIGUITY NOW:
    - Reference the CR for WHAT and WHY
-   - ASK any remaining questions about HOW
-   - Resolve ALL ambiguity NOW
-   - Implementation phase should have NO questions
+   - Clarify any questions about HOW
+   - Implementation phase should have ZERO questions
+   - All decisions must be made here
 
-## PHASE 2: DESIGN (In Plan Mode)
+## STEP 2: DESIGN (In Plan Mode)
 
 1. DEFINE the approach:
    - How will this be implemented in THIS codebase?
@@ -81,12 +100,13 @@ Before starting:
 **Codebase:** [codebase name]
 **CR:** [link to change request]
 **Date:** YYYY-MM-DD
+**Status:** Approved
 
 ## Objective
 [What this plan accomplishes in THIS codebase]
 
 ## Context
-[Relevant background from CR, decisions]
+[Relevant background from CR, decisions, conventions from CLAUDE.md]
 
 ## Approach
 [How this will be implemented]
@@ -112,16 +132,16 @@ Before starting:
 - [ ] [Test 2 description]
 
 ## Notes for Implementation
-[Anything the implementer needs to know]
+[Anything the implementer needs to know - NO decisions should remain]
 ```
 
-## PHASE 3: EXIT PLAN MODE
+## STEP 3: EXIT PLAN MODE
 
 1. CALL `ExitPlanMode` to request user approval
 2. WAIT for user to approve the plan
 3. If not approved, revise based on feedback
 
-## PHASE 4: WRITE TESTS (After Approval)
+## STEP 4: WRITE TESTS (After Approval)
 
 Write failing tests that define expected behavior:
 
@@ -133,7 +153,7 @@ Write failing tests that define expected behavior:
    - Follow codebase's test patterns
 
 2. RUN tests to confirm they FAIL:
-   - Tests MUST fail (RED)
+   - **Tests MUST fail (RED)**
    - If tests pass, either:
      - Feature already exists
      - Test is wrong
@@ -148,7 +168,8 @@ Write failing tests that define expected behavior:
 
 After completion, report:
 
-✅ PLANNING COMPLETE
+```
+PLANNING COMPLETE
 
 ## Codebase
 [Which codebase this plan is for]
@@ -166,27 +187,26 @@ After completion, report:
 
 ## Tests Written
 - [test file]: [X tests]
-- All tests: FAILING (RED) ✓
+- All tests: FAILING (RED)
 
 ## Test Output
-```
 [Actual test output showing failures]
-```
 
 ## Next Steps
-1. Review the plan if not already approved
-2. Run `/fz-implement` to make tests pass
+1. Run `/fz-implement` to make tests pass
+```
 
 ## RULES - CRITICAL
 
 1. **USE PLAN MODE** - Enter plan mode at start
-2. **PLANS ARE CODEBASE-SPECIFIC** - One plan per codebase
+2. **PLANS ARE CODEBASE-SPECIFIC** - One plan per codebase, in `codebases/<name>/docs/plans/`
 3. **NEVER write implementation code** - Only tests and plan documents
-4. **TESTS MUST FAIL** - If tests pass, something is wrong
-5. **RESOLVE ALL AMBIGUITY** - No questions should remain for implementation
+4. **TESTS MUST FAIL (RED)** - If tests pass, something is wrong
+5. **RESOLVE ALL AMBIGUITY** - Implementation should have ZERO questions
 6. **EVERY TASK NEEDS ACCEPTANCE CRITERIA** - Be specific
 7. **WAIT FOR APPROVAL** - Don't write tests until plan is approved
-8. **COMMIT the plan and tests** - Version control
+8. **READ EVERYTHING** - CLAUDE.md, CR, docs/, codebase files
+9. **NO AskUserQuestion** - Present options and wait for response
 
 ## WHEN TESTS AREN'T APPLICABLE
 
@@ -204,9 +224,10 @@ In these cases:
 
 - Skipping plan mode
 - Writing implementation code
-- Creating tests that pass immediately
+- Creating tests that pass immediately (must be RED)
 - Vague tasks like "implement the feature"
 - Leaving ambiguity for implementation phase
 - Skipping test writing when tests are applicable
 - Not committing the plan
-- Creating plans at project root instead of codebase
+- Creating plans at project root instead of in codebase
+- Not reading CLAUDE.md for conventions
