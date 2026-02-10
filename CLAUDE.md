@@ -1,6 +1,6 @@
 # FZ Workflow System Plugin
 
-> **Version:** 3.3
+> **Version:** 3.4
 > **Author:** FERAS ALZAIDI
 
 A comprehensive AI-assisted development workflow built on top of Claude Code.
@@ -48,7 +48,7 @@ These are **separate**. Recording in WORK.md is an action, not the DOCUMENT phas
 
 Each phase can directly edit WORK.md:
 - Add work items (discoveries)
-- Update item status (pending → in progress → done)
+- Update item status (pending -> in progress -> done)
 - This is an **action**, not the DOCUMENT phase
 
 ### Work Item Statuses
@@ -129,42 +129,84 @@ project-root/
 
 ---
 
-## Command Categories
+## Commands & Agents
 
 See `TOOLS.md` for full documentation.
 
-### Phase Commands
-- `/fz-discuss` — Explore ideas, problems, decisions (What + Why)
-- `/fz-plan` — Design solution, write failing tests (How)
-- `/fz-implement` — Execute plan, make tests pass (Execute)
-- `/fz-document` — Make docs consistent, clear, comprehensive (Record + Capture)
+### Commands (User-Invoked)
 
-### Draft Creators
-Create initial file templates. Receive context from parent agent, create structure, then refine.
+#### Phase Commands
+| Command | Purpose |
+|---------|---------|
+| `/fz-discuss` | Explore ideas, problems, decisions (What + Why) |
+| `/fz-plan` | Design solution, write failing tests (How) |
+| `/fz-implement` | Execute plan, make tests pass (Execute) |
+| `/fz-document` | Make docs consistent, clear, comprehensive (Record + Capture) |
 
-- `/fz-init-project` — Generate project structure
-- `/fz-init-cr` — Generate CR template
-- `/fz-init-plan` — Generate plan template
-- `/fz-init-spec` — Generate spec template
-- `/fz-init-report` — Generate implementation report template
+#### Initialization
+| Command | Purpose |
+|---------|---------|
+| `/fz-init-project` | Generate project structure |
 
-### Documentation Tools
-Specialists + orchestrator. Validate against git history.
+#### Orchestrators (Read-Only)
+| Command | Purpose |
+|---------|---------|
+| `/fz-doc-audit` | Run all doc assessment agents |
+| `/fz-code-audit` | Run all code assessment agents |
 
-- `/fz-doc-scan` — Index all docs
-- `/fz-doc-consistency` — Compare docs vs code
-- `/fz-doc-freshness` — Find outdated docs
-- `/fz-doc-gaps` — Find missing docs
-- `/fz-doc-review` — Quality review
-- `/fz-doc-audit` — Run all doc specialists (orchestrator)
+#### Standalone
+| Command | Purpose |
+|---------|---------|
+| `/fz-run-checks` | Run tests, linter, build |
+| `/fz-audit` | Audit against specs |
 
-### Standalone Skills
-- `/fz-cr` — Create change request directly
-- `/fz-tests` — Write tests independently
-- `/fz-verify` — Run verification (tests, linter, build)
-- `/fz-review` — Code quality review
-- `/fz-audit` — Audit against specs
-- `/fz-diagnose` — Bug investigation
+#### Makers
+| Command | Purpose |
+|---------|---------|
+| `/fz-make-mermaid-diagram` | Create Mermaid diagrams |
+| `/fz-make-prototype` | Create UI mockups |
+
+### Agents (Spawned)
+
+#### Drafters
+| Agent | Purpose |
+|-------|---------|
+| `fz-cr-drafter` | Create CR template |
+| `fz-plan-drafter` | Create plan template |
+| `fz-report-drafter` | Create report template |
+
+#### Doc Assessment
+| Agent | Purpose |
+|-------|---------|
+| `fz-doc-scanner` | Index all docs |
+| `fz-doc-consistency-checker` | Find mismatches |
+| `fz-doc-freshness-checker` | Find outdated |
+| `fz-doc-gap-finder` | Find missing |
+| `fz-doc-reviewer` | Quality review |
+
+#### Code Assessment
+| Agent | Purpose |
+|-------|---------|
+| `fz-code-security-auditor` | Security vulnerabilities |
+| `fz-code-deps-checker` | Dependency issues |
+| `fz-code-debt-analyzer` | Technical debt |
+| `fz-code-secrets-scanner` | Secrets scan |
+| `fz-code-permissions-auditor` | Auth audit |
+
+#### Other
+| Agent | Purpose |
+|-------|---------|
+| `fz-test-writer` | Write tests |
+| `fz-debugger` | Debug bugs, find root cause, suggest fixes |
+
+---
+
+## Permission Rule
+
+| Type | Permission |
+|------|------------|
+| Contains "audit" or "init" | Read-only, can run automatically |
+| Other commands | Require user permission before changes |
 
 ---
 
@@ -172,7 +214,7 @@ Specialists + orchestrator. Validate against git history.
 
 | Phase | Never | Always |
 |-------|-------|--------|
-| DISCUSS | Write code | Update WORK.md, use AskUserQuestion |
+| DISCUSS | Write code | Update WORK.md |
 | PLAN | Write implementation | Use plan mode, tests must fail, read codebase |
 | IMPLEMENT | Make decisions | Follow plan, verify, create reports |
 | DOCUMENT | Change functionality | Read everything, ensure consistency |
@@ -184,7 +226,6 @@ Specialists + orchestrator. Validate against git history.
 ### Discussion Phase
 - Writing code
 - Skipping research
-- Making decisions without AskUserQuestion
 - Forgetting to update WORK.md
 
 ### Planning Phase
@@ -204,3 +245,13 @@ Specialists + orchestrator. Validate against git history.
 - Changing functionality
 - Skipping inconsistency checks
 - Not reading implementation reports
+
+---
+
+## Design Principles
+
+1. **No AskUserQuestion** - Messes up context on rewind
+2. **Templates Over Questions** - Draft creators use templates, refine after
+3. **Git History as Truth** - Assessment agents validate against commits
+4. **Orchestrators Over Manual** - Run multiple checks with one command
+5. **Read-Only Audits** - Audit commands never modify files
