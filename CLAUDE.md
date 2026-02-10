@@ -1,6 +1,6 @@
 # FZ Workflow System Plugin
 
-> **Version:** 3.1
+> **Version:** 3.3
 > **Author:** FERAS ALZAIDI
 
 A comprehensive AI-assisted development workflow built on top of Claude Code.
@@ -13,180 +13,194 @@ A comprehensive AI-assisted development workflow built on top of Claude Code.
 
 | Law | Description |
 |-----|-------------|
-| Discussion = Documents Only | Never write code during discussion phase |
-| Planning = Tests + Plans Only | Write failing tests, never implementation |
-| Implementation = Code Only | Make tests pass, never create new plans |
+| Phase Separation | Never mix phase activities |
+| WORK.md is Direct | Edit from any phase, not through DOCUMENT phase |
+| Done Means Objective Achieved | Not just one phase complete |
 | Evidence Before Claims | Never claim success without running verification |
+| Tests Are Sacred | Edit tests only with user permission |
 | Libraries First | Always check for existing solutions before building custom |
 
-### Three Phases
+### Four Phases
 
-| Phase | Command | Purpose | Output |
-|-------|---------|---------|--------|
-| Discussion | `/fz-discuss` | Decisions, brainstorming, any discussion | CR (optional), WORK.md, CLAUDE.md |
-| Planning | `/fz-plan` | Define how to implement, write failing tests | Plan (codebase-specific), failing tests |
-| Implementation | `/fz-implement` | Execute plan, make tests pass | Working code, passing tests |
-
-### Permission Rule
-
-Commands **without** "assess" or "init" in name require user confirmation before making changes.
-
-Commands **with** "assess" or "init" can run automatically (read-only or draft generation).
+| Phase | Verb | Description | Output |
+|-------|------|-------------|--------|
+| **DISCUSS** | What + Why | Exploring ideas, problems, decisions | CR, WORK.md, CLAUDE.md |
+| **PLAN** | How | Designing the solution | Plan, failing tests |
+| **IMPLEMENT** | Execute | Building it | Working code, passing tests, reports |
+| **DOCUMENT** | Record + Capture | Making docs consistent, comprehensive, clear, not outdated | Updated docs |
 
 ---
 
-## Key Concepts
+## Key Distinction
 
-### Change Request (CR) vs Plan
+| Concept | What It Is |
+|---------|------------|
+| **Documenting (action)** | Editing WORK.md directly - happens from ANY phase |
+| **DOCUMENT (phase)** | Making docs consistent, comprehensive, clear, not outdated |
 
-| Aspect | Change Request | Plan |
-|--------|---------------|------|
+These are **separate**. Recording in WORK.md is an action, not the DOCUMENT phase.
+
+---
+
+## WORK.md Management
+
+### Direct Editing
+
+Each phase can directly edit WORK.md:
+- Add work items (discoveries)
+- Update item status (pending → in progress → done)
+- This is an **action**, not the DOCUMENT phase
+
+### Work Item Statuses
+
+| Status | When |
+|--------|------|
+| `[ ]` Pending | Item added, not started |
+| `[~]` In Progress | Phase starts working on it |
+| `[x]` Done | Item's **full objective** is achieved |
+
+### WORK.md Format
+
+```markdown
+# Work
+
+## In Progress
+- [~] [DISCUSS] Add user authentication
+
+## Pending
+- [ ] [DISCUSS] Bug found - need root cause
+- [ ] [PLAN] New feature - needs planning
+- [ ] [IMPLEMENT] Quick typo fix
+
+## Completed
+- [x] Set up project structure
+```
+
+---
+
+## File Structure
+
+```
+project-root/
+├── WORK.md                      # Central hub - edited by all phases
+├── CLAUDE.md                    # Decisions, conventions
+├── README.md
+├── docs/                        # Root level docs
+├── change-requests/             # CRs (project-level)
+│   └── CR-*.md
+└── codebases/
+    └── <name>/
+        ├── WORK.md              # Codebase-specific work
+        ├── docs/
+        │   ├── plans/           # Plans (codebase-level)
+        │   └── reports/         # Reports from IMPLEMENT
+        └── ... (any files)
+```
+
+---
+
+## File Actions Matrix
+
+| File/Directory | DISCUSS | PLAN | IMPLEMENT | DOCUMENT |
+|----------------|---------|------|-----------|----------|
+| `WORK.md` | Edit | Edit | Edit | Edit |
+| `CLAUDE.md` | Edit | Read | - | Edit |
+| `change-requests/CR-*.md` | Create | Read | - | Read |
+| `docs/` (root) | Create/Edit | Read | - | Read/Edit |
+| `codebases/*/docs/plans/*.md` | - | Create | Read | Read |
+| `codebases/*/docs/reports/` | - | - | Create | Read |
+| `codebases/*/**` (all files) | - | Read | Create/Edit | Read |
+| `codebases/*/tests/*` | - | Create | Create / Edit* | Read |
+| `README.md` (root) | - | - | - | Read/Edit |
+| `codebases/*/README.md` | - | - | - | Read/Edit |
+
+**\*Edit tests requires user permission** (tests = success criteria)
+
+---
+
+## CR vs Plan
+
+| Aspect | Change Request (CR) | Plan |
+|--------|---------------------|------|
 | **Level** | Project | Codebase |
 | **Content** | What + Why | How |
 | **Location** | `change-requests/` | `codebases/<name>/docs/plans/` |
 | **Quantity** | One per change | One per affected codebase |
 
-**CR = The "What" and "Why"** - Describes what needs to be done
-**Plan = The "How"** - Describes how to implement it in a specific codebase
-
-### Flow
-
-```
-/fz-discuss ─→ CR (if change needed)
-                 │
-                 ├─→ /fz-plan (codebase A) → /fz-implement (codebase A)
-                 │
-                 └─→ /fz-plan (codebase B) → /fz-implement (codebase B)
-```
-
----
-
-## Project Structure
-
-```
-project-root/
-├── CLAUDE.md                    # Project decisions, conventions
-├── WORK.md                      # Work tracking
-├── README.md
-├── .gitignore
-├── change-requests/             # CRs live here (project-level)
-│   └── CR-YYYY-MM-DD-NNN.md
-└── codebases/
-    ├── frontend/
-    │   ├── docs/
-    │   │   └── plans/           # Frontend plans only
-    │   └── ... (frontend code)
-    └── backend/
-        ├── docs/
-        │   └── plans/           # Backend plans only
-        └── ... (backend code)
-```
-
 ---
 
 ## Command Categories
 
-### Phase Commands (The Workflow)
-- `/fz-discuss` - Discuss anything: features, bugs, ideas, decisions, brainstorming
-- `/fz-plan` - Create implementation plan and write failing tests (uses plan mode)
-- `/fz-implement` - Execute plan, make tests pass
+See `TOOLS.md` for full documentation.
 
-### Initialization Commands (Draft Generation)
-- `/fz-init-project` - Generate project structure
-- `/fz-init-cr` - Generate a change request first draft
-- `/fz-init-plan` - Generate an implementation plan first draft
-- `/fz-init-spec` - Generate a specification first draft
+### Phase Commands
+- `/fz-discuss` — Explore ideas, problems, decisions (What + Why)
+- `/fz-plan` — Design solution, write failing tests (How)
+- `/fz-implement` — Execute plan, make tests pass (Execute)
+- `/fz-document` — Make docs consistent, clear, comprehensive (Record + Capture)
 
-### Standalone Skills (Usable Anytime)
-- `/fz-tests` - Write tests independently
-- `/fz-verify` - Run verification (tests, linter, build)
-- `/fz-cr` - Create change request directly (without full discussion)
-- `/fz-review` - Code quality review
-- `/fz-audit` - Audit against specs
-- `/fz-diagnose` - Bug investigation
-- `/fz-document` - Documentation maintenance
+### Draft Creators
+Create initial file templates. Receive context from parent agent, create structure, then refine.
 
-### Assessment Skills (/fz-assess-*)
-- `/fz-validate` - Run all validations
-- `/fz-assess-impact` - Analyze change impact
-- `/fz-assess-logic` - Check business rules
-- `/fz-assess-feasibility` - Check codebase state
-- `/fz-assess-security` - Security vulnerability assessment
-- `/fz-assess-deps` - Dependency scan
-- `/fz-assess-secrets` - Secrets scan
-- `/fz-assess-permissions` - Auth audit
-- `/fz-assess-debt` - Technical debt check
-- `/fz-assess-consistency` - Consistency check
+- `/fz-init-project` — Generate project structure
+- `/fz-init-cr` — Generate CR template
+- `/fz-init-plan` — Generate plan template
+- `/fz-init-spec` — Generate spec template
+- `/fz-init-report` — Generate implementation report template
 
-### Maker Skills (/fz-make-*)
-- `/fz-make-mermaid-diagram` - Create diagrams
-- `/fz-make-prototype` - Create UI mockups
+### Documentation Tools
+Specialists + orchestrator. Validate against git history.
 
----
+- `/fz-doc-scan` — Index all docs
+- `/fz-doc-consistency` — Compare docs vs code
+- `/fz-doc-freshness` — Find outdated docs
+- `/fz-doc-gaps` — Find missing docs
+- `/fz-doc-review` — Quality review
+- `/fz-doc-audit` — Run all doc specialists (orchestrator)
 
-## Workflow Rules
-
-### Discussion Phase
-- Can discuss ANYTHING: features, bugs, ideas, project setup, brainstorming
-- Updates WORK.md with work items (always)
-- Updates CLAUDE.md with decisions/conventions (if applicable)
-- Creates CR in `change-requests/` (if code changes needed)
-- NEVER writes code
-
-### Planning Phase
-- Uses Claude Code's plan mode
-- Creates detailed implementation plan in `codebases/<name>/docs/plans/`
-- Writes failing tests (RED)
-- Resolves ALL ambiguity - implementation should have no questions
-- NEVER writes implementation code
-- One plan per codebase
-
-### Implementation Phase
-- Follows the plan exactly
-- Makes tests pass (GREEN)
-- No decisions - just execution
-- Updates WORK.md when done
-- Works within the specific codebase
-
-### Refactoring
-- Refactoring is a SEPARATE change
-- Goes through full cycle: discuss → plan → implement
-- Not part of implementation phase
-
-### Verification Rules
-1. Evidence before claims - Run tests, show output
-2. Fresh verification - Don't trust old results
-3. Full verification - Partial checks prove nothing
-4. Exit code matters - Check for 0 (success)
+### Standalone Skills
+- `/fz-cr` — Create change request directly
+- `/fz-tests` — Write tests independently
+- `/fz-verify` — Run verification (tests, linter, build)
+- `/fz-review` — Code quality review
+- `/fz-audit` — Audit against specs
+- `/fz-diagnose` — Bug investigation
 
 ---
 
-## Anti-Patterns to Avoid
+## Phase Rules Quick Reference
+
+| Phase | Never | Always |
+|-------|-------|--------|
+| DISCUSS | Write code | Update WORK.md, use AskUserQuestion |
+| PLAN | Write implementation | Use plan mode, tests must fail, read codebase |
+| IMPLEMENT | Make decisions | Follow plan, verify, create reports |
+| DOCUMENT | Change functionality | Read everything, ensure consistency |
+
+---
+
+## Anti-Patterns
 
 ### Discussion Phase
-- Writing code instead of documents
-- Skipping library/package research
-- Building custom when a library exists
-- Making decisions without using AskUserQuestion
+- Writing code
+- Skipping research
+- Making decisions without AskUserQuestion
 - Forgetting to update WORK.md
-- Creating CR when no code changes needed
 
 ### Planning Phase
 - Skipping plan mode
 - Writing implementation code
 - Creating tests that pass immediately
-- Leaving ambiguity for implementation
-- Creating plans at project root (should be in codebase)
+- Not reading codebase files
 
 ### Implementation Phase
-- Creating new plans
 - Making decisions
 - "While I'm here" additions
+- Editing tests without permission
 - Claiming success without verification
-- Working at project root instead of in codebase
+- Not creating reports
 
-### General
-- Mixing phases
-- Committing to main directly
-- Reinventing the wheel
-- Confusing CRs with Plans
+### Document Phase
+- Changing functionality
+- Skipping inconsistency checks
+- Not reading implementation reports

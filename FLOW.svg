@@ -1,0 +1,276 @@
+<svg viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <marker id="arrow-black" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#333"/>
+    </marker>
+    <marker id="arrow-green" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#16a34a"/>
+    </marker>
+    <marker id="arrow-blue" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#2563eb"/>
+    </marker>
+    <marker id="arrow-gray" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#666"/>
+    </marker>
+    <marker id="arrow-orange" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <polygon points="0 0, 8 3, 0 6" fill="#ea580c"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect x="0" y="0" width="1000" height="700" fill="#fafafa"/>
+
+  <!-- Title -->
+  <text x="500" y="30" text-anchor="middle" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1e1e1e">FZ Workflow</text>
+
+  <!-- ==================== PHASES (Left Side) ==================== -->
+
+  <!-- START -->
+  <circle cx="100" cy="80" r="20" fill="#333"/>
+  <text x="100" y="85" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">START</text>
+
+  <!-- DISCUSS -->
+  <rect x="40" y="130" width="120" height="70" rx="8" fill="#e0f2fe" stroke="#0284c7" stroke-width="2"/>
+  <text x="100" y="155" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#0284c7">DISCUSS</text>
+  <text x="100" y="172" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#333">What + Why</text>
+  <text x="100" y="188" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#666">⛔ No code</text>
+
+  <!-- PLAN -->
+  <rect x="40" y="230" width="120" height="70" rx="8" fill="#fef3c7" stroke="#d97706" stroke-width="2"/>
+  <text x="100" y="255" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#d97706">PLAN</text>
+  <text x="100" y="272" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#333">How</text>
+  <text x="100" y="288" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#666">⛔ No implementation</text>
+
+  <!-- IMPLEMENT -->
+  <rect x="40" y="330" width="120" height="70" rx="8" fill="#dcfce7" stroke="#16a34a" stroke-width="2"/>
+  <text x="100" y="355" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#16a34a">IMPLEMENT</text>
+  <text x="100" y="372" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#333">Execute</text>
+  <text x="100" y="388" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#666">⛔ No decisions</text>
+
+  <!-- DOCUMENT -->
+  <rect x="40" y="430" width="120" height="70" rx="8" fill="#f3e8ff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="100" y="455" text-anchor="middle" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#7c3aed">DOCUMENT</text>
+  <text x="100" y="472" text-anchor="middle" font-family="Arial, sans-serif" font-size="11" fill="#333">Record + Capture</text>
+  <text x="100" y="488" text-anchor="middle" font-family="Arial, sans-serif" font-size="9" fill="#666">⛔ No functionality</text>
+
+  <!-- END -->
+  <rect x="80" y="530" width="40" height="25" rx="4" fill="#333"/>
+  <text x="100" y="547" text-anchor="middle" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#fff">END</text>
+
+  <!-- Phase Flow Arrows -->
+  <line x1="100" y1="100" x2="100" y2="125" stroke="#333" stroke-width="2" marker-end="url(#arrow-black)"/>
+  <line x1="100" y1="200" x2="100" y2="225" stroke="#333" stroke-width="2" marker-end="url(#arrow-black)"/>
+  <line x1="100" y1="300" x2="100" y2="325" stroke="#333" stroke-width="2" marker-end="url(#arrow-black)"/>
+  <line x1="100" y1="400" x2="100" y2="425" stroke="#333" stroke-width="2" marker-end="url(#arrow-black)"/>
+  <line x1="100" y1="500" x2="100" y2="525" stroke="#333" stroke-width="2" marker-end="url(#arrow-black)"/>
+
+  <!-- ==================== FILES (Right Side) ==================== -->
+
+  <!-- WORK.md -->
+  <rect x="280" y="60" width="140" height="30" rx="4" fill="#fff" stroke="#333" stroke-width="1.5"/>
+  <text x="350" y="80" text-anchor="middle" font-family="monospace" font-size="11" fill="#333">WORK.md</text>
+
+  <!-- CLAUDE.md -->
+  <rect x="280" y="110" width="140" height="30" rx="4" fill="#fff" stroke="#333" stroke-width="1.5"/>
+  <text x="350" y="130" text-anchor="middle" font-family="monospace" font-size="11" fill="#333">CLAUDE.md</text>
+
+  <!-- change-requests/ -->
+  <rect x="280" y="160" width="140" height="30" rx="4" fill="#fff" stroke="#333" stroke-width="1.5"/>
+  <text x="350" y="180" text-anchor="middle" font-family="monospace" font-size="11" fill="#333">change-requests/</text>
+
+  <!-- docs/ (root) -->
+  <rect x="280" y="210" width="140" height="30" rx="4" fill="#fff" stroke="#333" stroke-width="1.5"/>
+  <text x="350" y="230" text-anchor="middle" font-family="monospace" font-size="11" fill="#333">docs/ (root)</text>
+
+  <!-- README.md -->
+  <rect x="280" y="260" width="140" height="30" rx="4" fill="#fff" stroke="#333" stroke-width="1.5"/>
+  <text x="350" y="280" text-anchor="middle" font-family="monospace" font-size="11" fill="#333">README.md</text>
+
+  <!-- codebases/*/** -->
+  <rect x="280" y="330" width="140" height="30" rx="4" fill="#fff" stroke="#333" stroke-width="1.5"/>
+  <text x="350" y="350" text-anchor="middle" font-family="monospace" font-size="11" fill="#333">codebases/*/**</text>
+
+  <!-- codebases/*/tests/ -->
+  <rect x="280" y="380" width="140" height="30" rx="4" fill="#fff" stroke="#333" stroke-width="1.5"/>
+  <text x="350" y="400" text-anchor="middle" font-family="monospace" font-size="11" fill="#333">codebases/*/tests/</text>
+
+  <!-- codebases/*/docs/plans/ -->
+  <rect x="280" y="430" width="140" height="30" rx="4" fill="#fff" stroke="#333" stroke-width="1.5"/>
+  <text x="350" y="450" text-anchor="middle" font-family="monospace" font-size="10" fill="#333">*/docs/plans/</text>
+
+  <!-- codebases/*/docs/reports/ -->
+  <rect x="280" y="480" width="140" height="30" rx="4" fill="#fff" stroke="#333" stroke-width="1.5"/>
+  <text x="350" y="500" text-anchor="middle" font-family="monospace" font-size="10" fill="#333">*/docs/reports/</text>
+
+  <!-- ==================== ARROWS FROM PHASES TO FILES ==================== -->
+
+  <!-- DISCUSS arrows -->
+  <line x1="160" y1="145" x2="275" y2="75" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <line x1="160" y1="155" x2="275" y2="125" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <line x1="160" y1="165" x2="275" y2="175" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <line x1="160" y1="175" x2="275" y2="225" stroke="#ea580c" stroke-width="1.5" marker-end="url(#arrow-orange)"/>
+
+  <!-- PLAN arrows -->
+  <line x1="160" y1="245" x2="275" y2="75" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <line x1="160" y1="250" x2="275" y2="125" stroke="#666" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+  <line x1="160" y1="255" x2="275" y2="175" stroke="#666" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+  <line x1="160" y1="260" x2="275" y2="225" stroke="#666" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+  <line x1="160" y1="265" x2="275" y2="345" stroke="#666" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+  <line x1="160" y1="275" x2="275" y2="395" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+  <line x1="160" y1="285" x2="275" y2="445" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+
+  <!-- IMPLEMENT arrows -->
+  <line x1="160" y1="345" x2="275" y2="75" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <line x1="160" y1="355" x2="275" y2="345" stroke="#ea580c" stroke-width="1.5" marker-end="url(#arrow-orange)"/>
+  <line x1="160" y1="365" x2="275" y2="395" stroke="#ea580c" stroke-width="1.5" stroke-dasharray="4,2" marker-end="url(#arrow-orange)"/>
+  <line x1="160" y1="375" x2="275" y2="445" stroke="#666" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+  <line x1="160" y1="385" x2="275" y2="495" stroke="#16a34a" stroke-width="1.5" marker-end="url(#arrow-green)"/>
+
+  <!-- DOCUMENT arrows -->
+  <line x1="160" y1="445" x2="275" y2="75" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <line x1="160" y1="450" x2="275" y2="125" stroke="#2563eb" stroke-width="1.5" marker-end="url(#arrow-blue)"/>
+  <line x1="160" y1="455" x2="275" y2="175" stroke="#666" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+  <line x1="160" y1="460" x2="275" y2="225" stroke="#ea580c" stroke-width="1.5" marker-end="url(#arrow-orange)"/>
+  <line x1="160" y1="465" x2="275" y2="275" stroke="#ea580c" stroke-width="1.5" marker-end="url(#arrow-orange)"/>
+  <line x1="160" y1="470" x2="275" y2="345" stroke="#666" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+  <line x1="160" y1="475" x2="275" y2="395" stroke="#666" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+  <line x1="160" y1="480" x2="275" y2="445" stroke="#666" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+  <line x1="160" y1="485" x2="275" y2="495" stroke="#666" stroke-width="1.5" marker-end="url(#arrow-gray)"/>
+
+  <!-- ==================== LEGEND ==================== -->
+  <rect x="480" y="55" width="200" height="130" rx="6" fill="#fff" stroke="#ddd" stroke-width="1"/>
+  <text x="580" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#333">Legend</text>
+
+  <line x1="495" y1="95" x2="525" y2="95" stroke="#16a34a" stroke-width="2"/>
+  <text x="535" y="99" font-family="Arial, sans-serif" font-size="11" fill="#333">Create</text>
+
+  <line x1="495" y1="115" x2="525" y2="115" stroke="#666" stroke-width="2"/>
+  <text x="535" y="119" font-family="Arial, sans-serif" font-size="11" fill="#333">Read</text>
+
+  <line x1="495" y1="135" x2="525" y2="135" stroke="#2563eb" stroke-width="2"/>
+  <text x="535" y="139" font-family="Arial, sans-serif" font-size="11" fill="#333">Edit</text>
+
+  <line x1="495" y1="155" x2="525" y2="155" stroke="#ea580c" stroke-width="2"/>
+  <text x="535" y="159" font-family="Arial, sans-serif" font-size="11" fill="#333">Create/Edit</text>
+
+  <line x1="495" y1="175" x2="525" y2="175" stroke="#ea580c" stroke-width="2" stroke-dasharray="4,2"/>
+  <text x="535" y="179" font-family="Arial, sans-serif" font-size="11" fill="#333">Edit (permission)</text>
+
+  <!-- ==================== PHASE COLORS ==================== -->
+  <rect x="480" y="200" width="200" height="110" rx="6" fill="#fff" stroke="#ddd" stroke-width="1"/>
+  <text x="580" y="220" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#333">Phases</text>
+
+  <rect x="495" y="235" width="12" height="12" rx="2" fill="#e0f2fe" stroke="#0284c7" stroke-width="1"/>
+  <text x="515" y="245" font-family="Arial, sans-serif" font-size="10" fill="#333">DISCUSS - What + Why</text>
+
+  <rect x="495" y="255" width="12" height="12" rx="2" fill="#fef3c7" stroke="#d97706" stroke-width="1"/>
+  <text x="515" y="265" font-family="Arial, sans-serif" font-size="10" fill="#333">PLAN - How</text>
+
+  <rect x="495" y="275" width="12" height="12" rx="2" fill="#dcfce7" stroke="#16a34a" stroke-width="1"/>
+  <text x="515" y="285" font-family="Arial, sans-serif" font-size="10" fill="#333">IMPLEMENT - Execute</text>
+
+  <rect x="495" y="295" width="12" height="12" rx="2" fill="#f3e8ff" stroke="#7c3aed" stroke-width="1"/>
+  <text x="515" y="305" font-family="Arial, sans-serif" font-size="10" fill="#333">DOCUMENT - Record</text>
+
+  <!-- ==================== KEY NOTES ==================== -->
+  <rect x="480" y="325" width="200" height="90" rx="6" fill="#fff" stroke="#ddd" stroke-width="1"/>
+  <text x="580" y="345" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#333">Key Notes</text>
+
+  <text x="490" y="365" font-family="Arial, sans-serif" font-size="9" fill="#555">• WORK.md edited by ALL phases</text>
+  <text x="490" y="380" font-family="Arial, sans-serif" font-size="9" fill="#555">• Tests: edit needs permission</text>
+  <text x="490" y="395" font-family="Arial, sans-serif" font-size="9" fill="#555">• DOCUMENT reads everything</text>
+  <text x="490" y="410" font-family="Arial, sans-serif" font-size="9" fill="#555">• IMPLEMENT → reports in codebase only</text>
+
+  <!-- ==================== FILE MATRIX TABLE ==================== -->
+  <rect x="700" y="55" width="280" height="360" rx="6" fill="#fff" stroke="#ddd" stroke-width="1"/>
+  <text x="840" y="75" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#333">File Actions Matrix</text>
+
+  <!-- Table Header -->
+  <text x="710" y="100" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#333">File</text>
+  <text x="800" y="100" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#0284c7">DIS</text>
+  <text x="830" y="100" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#d97706">PLN</text>
+  <text x="860" y="100" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#16a34a">IMP</text>
+  <text x="890" y="100" font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#7c3aed">DOC</text>
+
+  <line x1="710" y1="105" x2="970" y2="105" stroke="#ddd" stroke-width="1"/>
+
+  <!-- Table Rows -->
+  <text x="710" y="120" font-family="monospace" font-size="8" fill="#333">WORK.md</text>
+  <text x="800" y="120" font-family="Arial" font-size="9" fill="#2563eb">E</text>
+  <text x="830" y="120" font-family="Arial" font-size="9" fill="#2563eb">E</text>
+  <text x="860" y="120" font-family="Arial" font-size="9" fill="#2563eb">E</text>
+  <text x="890" y="120" font-family="Arial" font-size="9" fill="#2563eb">E</text>
+
+  <text x="710" y="140" font-family="monospace" font-size="8" fill="#333">CLAUDE.md</text>
+  <text x="800" y="140" font-family="Arial" font-size="9" fill="#2563eb">E</text>
+  <text x="830" y="140" font-family="Arial" font-size="9" fill="#666">R</text>
+  <text x="860" y="140" font-family="Arial" font-size="9" fill="#999">-</text>
+  <text x="890" y="140" font-family="Arial" font-size="9" fill="#2563eb">E</text>
+
+  <text x="710" y="160" font-family="monospace" font-size="8" fill="#333">change-requests/</text>
+  <text x="800" y="160" font-family="Arial" font-size="9" fill="#16a34a">C</text>
+  <text x="830" y="160" font-family="Arial" font-size="9" fill="#666">R</text>
+  <text x="860" y="160" font-family="Arial" font-size="9" fill="#999">-</text>
+  <text x="890" y="160" font-family="Arial" font-size="9" fill="#666">R</text>
+
+  <text x="710" y="180" font-family="monospace" font-size="8" fill="#333">docs/ (root)</text>
+  <text x="800" y="180" font-family="Arial" font-size="9" fill="#ea580c">C/E</text>
+  <text x="830" y="180" font-family="Arial" font-size="9" fill="#666">R</text>
+  <text x="860" y="180" font-family="Arial" font-size="9" fill="#999">-</text>
+  <text x="890" y="180" font-family="Arial" font-size="9" fill="#ea580c">R/E</text>
+
+  <text x="710" y="200" font-family="monospace" font-size="8" fill="#333">README.md</text>
+  <text x="800" y="200" font-family="Arial" font-size="9" fill="#999">-</text>
+  <text x="830" y="200" font-family="Arial" font-size="9" fill="#999">-</text>
+  <text x="860" y="200" font-family="Arial" font-size="9" fill="#999">-</text>
+  <text x="890" y="200" font-family="Arial" font-size="9" fill="#ea580c">R/E</text>
+
+  <line x1="710" y1="210" x2="970" y2="210" stroke="#eee" stroke-width="1"/>
+
+  <text x="710" y="225" font-family="monospace" font-size="8" fill="#333">codebases/*/**</text>
+  <text x="800" y="225" font-family="Arial" font-size="9" fill="#999">-</text>
+  <text x="830" y="225" font-family="Arial" font-size="9" fill="#666">R</text>
+  <text x="860" y="225" font-family="Arial" font-size="9" fill="#ea580c">C/E</text>
+  <text x="890" y="225" font-family="Arial" font-size="9" fill="#666">R</text>
+
+  <text x="710" y="245" font-family="monospace" font-size="8" fill="#333">*/tests/</text>
+  <text x="800" y="245" font-family="Arial" font-size="9" fill="#999">-</text>
+  <text x="830" y="245" font-family="Arial" font-size="9" fill="#16a34a">C</text>
+  <text x="860" y="245" font-family="Arial" font-size="9" fill="#ea580c">C/E*</text>
+  <text x="890" y="245" font-family="Arial" font-size="9" fill="#666">R</text>
+
+  <text x="710" y="265" font-family="monospace" font-size="8" fill="#333">*/docs/plans/</text>
+  <text x="800" y="265" font-family="Arial" font-size="9" fill="#999">-</text>
+  <text x="830" y="265" font-family="Arial" font-size="9" fill="#16a34a">C</text>
+  <text x="860" y="265" font-family="Arial" font-size="9" fill="#666">R</text>
+  <text x="890" y="265" font-family="Arial" font-size="9" fill="#666">R</text>
+
+  <text x="710" y="285" font-family="monospace" font-size="8" fill="#333">*/docs/reports/</text>
+  <text x="800" y="285" font-family="Arial" font-size="9" fill="#999">-</text>
+  <text x="830" y="285" font-family="Arial" font-size="9" fill="#999">-</text>
+  <text x="860" y="285" font-family="Arial" font-size="9" fill="#16a34a">C</text>
+  <text x="890" y="285" font-family="Arial" font-size="9" fill="#666">R</text>
+
+  <text x="710" y="305" font-family="monospace" font-size="8" fill="#333">*/README.md</text>
+  <text x="800" y="305" font-family="Arial" font-size="9" fill="#999">-</text>
+  <text x="830" y="305" font-family="Arial" font-size="9" fill="#999">-</text>
+  <text x="860" y="305" font-family="Arial" font-size="9" fill="#999">-</text>
+  <text x="890" y="305" font-family="Arial" font-size="9" fill="#ea580c">R/E</text>
+
+  <line x1="710" y1="315" x2="970" y2="315" stroke="#ddd" stroke-width="1"/>
+
+  <!-- Legend for table -->
+  <text x="710" y="335" font-family="Arial, sans-serif" font-size="8" fill="#16a34a">C = Create</text>
+  <text x="770" y="335" font-family="Arial, sans-serif" font-size="8" fill="#666">R = Read</text>
+  <text x="820" y="335" font-family="Arial, sans-serif" font-size="8" fill="#2563eb">E = Edit</text>
+  <text x="710" y="350" font-family="Arial, sans-serif" font-size="8" fill="#ea580c">C/E = Create or Edit</text>
+  <text x="810" y="350" font-family="Arial, sans-serif" font-size="8" fill="#999">- = None</text>
+  <text x="710" y="365" font-family="Arial, sans-serif" font-size="8" fill="#333">* = Edit requires user permission</text>
+
+  <!-- Column headers -->
+  <text x="710" y="385" font-family="Arial, sans-serif" font-size="7" fill="#0284c7">DIS = DISCUSS</text>
+  <text x="780" y="385" font-family="Arial, sans-serif" font-size="7" fill="#d97706">PLN = PLAN</text>
+  <text x="710" y="398" font-family="Arial, sans-serif" font-size="7" fill="#16a34a">IMP = IMPLEMENT</text>
+  <text x="800" y="398" font-family="Arial, sans-serif" font-size="7" fill="#7c3aed">DOC = DOCUMENT</text>
+
+</svg>

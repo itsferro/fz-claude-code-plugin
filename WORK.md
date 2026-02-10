@@ -1,50 +1,53 @@
 # Work
 
-## Completed
+## In Progress
 
-- [x] Update `/fz-init-project` - rename apps → codebases, add WORK.md to structure
-- [x] Create `/fz-discuss` - merge discuss-change + discuss-bug into single command
-- [x] Rename `/fz-execute` → `/fz-implement`
-- [x] Create `/fz-plan` - new phase command for planning + writing tests
-- [x] Update `/fz-tests` - standalone test writing skill
-- [x] Create `/fz-verify` - standalone verification skill
-- [x] Remove `/fz-discuss-change` and `/fz-discuss-bug`
-- [x] Update CLAUDE.md to reflect new workflow structure
-- [x] Create `/fz-cr` - basic version for cross-codebase change requests
-- [x] Update `/fz-document` - documentation maintenance skill
-- [x] Define Plans vs Change Requests distinction
-- [x] Update `/fz-discuss` - CR is optional output
-- [x] Update `/fz-plan` - uses plan mode, creates plans in codebase's docs/plans/
-- [x] Update `/fz-init-project` - remove root docs/plans/, clarify structure
-- [x] Update `/fz-implement` - reference plans from codebase's docs/plans/
-- [x] Update `/fz-cr` - clarify project-level, what vs how
-- [x] Update CLAUDE.md - version 3.1, CR vs Plan distinction
-- [x] Update `/fz-init-cr` - project-level, what+why, list affected codebases
-- [x] Update `/fz-init-plan` - codebase-specific, how, reference CR
+(none)
 
 ## Pending
 
-- [ ] Define WORK.md cleanup mechanism (manual for now, consider agent later)
+- [ ] Update `/fz-discuss` command to match new flow
+- [ ] Update `/fz-plan` command to match new flow
+- [ ] Update `/fz-implement` command to match new flow
+- [ ] Update `/fz-document` command to match new flow
+- [ ] Create `/fz-init-report` command
+- [ ] Create `/fz-doc-scan` agent
+- [ ] Create `/fz-doc-consistency` agent
+- [ ] Create `/fz-doc-freshness` agent
+- [ ] Create `/fz-doc-gaps` agent
+- [ ] Create `/fz-doc-review` agent
+- [ ] Create `/fz-doc-audit` orchestrator
 - [ ] Ensure permission rule is enforced (commands without "assess" or "init" require user permission)
 
-## Discussion Needed
+## Completed
 
-- [ ] Documentation phase - should it be a phase or stay as standalone tool?
-- [ ] Steps within each phase - detailed step definitions
+- [x] Define four phases: DISCUSS, PLAN, IMPLEMENT, DOCUMENT
+- [x] Define CR vs Plan distinction
+- [x] Define file actions matrix (which phase does what to which file)
+- [x] Clarify documenting (action) vs DOCUMENT (phase)
+- [x] Define WORK.md status management (pending, in progress, done)
+- [x] Define that "done" means full objective achieved, not just one phase
+- [x] Update `/fz-init-cr` - project-level, what+why
+- [x] Update `/fz-init-plan` - codebase-specific, how
+- [x] Update `/fz-init-project` - clarify structure
+- [x] Update CLAUDE.md to v3.3
+- [x] Update FLOW.md with full documentation
+- [x] Remove CHANGELOG.md (rely on git for now)
+- [x] Create FLOW.svg diagram with phases and file actions
+- [x] Define tools/skills structure
+- [x] Create TOOLS.md documentation
 
 ## Notes & Decisions
 
-- 2024: Three phases model: Discuss → Plan → Implement
-- 2024: Refactoring is a separate change, goes through full cycle
-- 2024: Discussion can be anything: features, bugs, brainstorming, project setup, notes
-- 2024: Implementation phase has no decisions - all decisions happen in Plan phase
-- 2024: Commands without "assess" or "init" need user permission
-- 2024: Renamed apps/ to codebases/ for clarity
-- 2024: WORK.md added to project structure for tracking work
-- 2024: **CR = Project-level (what + why), Plan = Codebase-level (how)**
-- 2024: Plans live in `codebases/<name>/docs/plans/`, NOT project root
-- 2024: CRs live in `change-requests/` at project root
-- 2024: One CR can result in multiple Plans (one per affected codebase)
-- 2024: `/fz-discuss` creates CR optionally (only if code changes needed)
-- 2024: `/fz-cr` for direct CR creation without full discussion
-- 2024: `/fz-plan` uses Claude Code's plan mode
+- Four phases: DISCUSS → PLAN → IMPLEMENT → DOCUMENT
+- Documenting (action) ≠ DOCUMENT (phase)
+- WORK.md is edited directly from any phase
+- "Done" = full objective achieved, not just one phase complete
+- Tests are sacred - edit only with user permission
+- IMPLEMENT creates reports in `codebases/*/docs/reports/` only (not root)
+- DOCUMENT phase = making docs consistent, comprehensive, clear, not outdated
+- CR = project-level (what + why), Plan = codebase-level (how)
+- No AskUserQuestion - messes up context on rewind
+- Draft creators don't ask questions - receive context, create template, then refine
+- Documentation tools validate against git commit history (recency = accuracy signal)
+- Orchestrator pattern: one command runs multiple specialist agents

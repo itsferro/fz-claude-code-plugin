@@ -1,0 +1,78 @@
+---
+title: FZ Workflow
+---
+flowchart TB
+    START(["▶ START"])
+    END(["■ END"])
+
+    subgraph DISCUSS["📢 DISCUSS"]
+        direction TB
+        D_VERB["<b>Verb:</b> What + Why"]
+        D_DESC["<b>Description:</b><br/>Exploring ideas, problems, and decisions /<br/>Understanding before acting"]
+        D_OUTPUT["<b>Output:</b><br/>• WORK.md (always)<br/>• CLAUDE.md (if decisions)<br/>• CR (if code change needed)"]
+        D_RULES["<b>⛔ Rules:</b><br/>• Never write code<br/>• Always update WORK.md<br/>• Use AskUserQuestion for decisions<br/>• Research before building custom"]
+        D_STEPS["<b>Steps:</b><br/>1. Listen – Understand what user wants<br/>2. Context – Read CLAUDE.md, WORK.md, docs<br/>3. Explore – Brainstorm, research, ask questions<br/>4. Decide – Use AskUserQuestion for choices<br/>5. Capture – Update docs, create CR if needed"]
+        D_TOOLS["<b>Tools:</b><br/>/fz-discuss, /fz-cr, AskUserQuestion,<br/>Read, Write, WebSearch"]
+    end
+
+    subgraph PLAN["📋 PLAN"]
+        direction TB
+        P_VERB["<b>Verb:</b> How"]
+        P_DESC["<b>Description:</b><br/>Designing the solution"]
+        P_OUTPUT["<b>Output:</b><br/>• Plan in codebases/&lt;name&gt;/docs/plans/<br/>• Failing tests (RED)"]
+        P_RULES["<b>⛔ Rules:</b><br/>• Never write implementation code<br/>• Use plan mode<br/>• Tests must fail (RED)<br/>• Resolve all ambiguity here"]
+        P_STEPS["<b>Steps:</b><br/>1. Check – Verify CR exists, identify codebase<br/>2. Enter – Start plan mode<br/>3. Explore – Read codebase, understand patterns<br/>4. Design – Define approach, break into tasks<br/>5. Approve – Present plan, get user approval<br/>6. Test – Write failing tests (RED)<br/>7. Commit – Save plan and tests"]
+        P_TOOLS["<b>Tools:</b><br/>/fz-plan, EnterPlanMode, ExitPlanMode,<br/>Read, Glob, Grep, Write, Edit, Bash, git"]
+    end
+
+    subgraph IMPLEMENT["⚙️ IMPLEMENT"]
+        direction TB
+        I_VERB["<b>Verb:</b> Execute"]
+        I_DESC["<b>Description:</b><br/>Building it"]
+        I_OUTPUT["<b>Output:</b><br/>• Working code<br/>• Passing tests (GREEN)<br/>• Updated WORK.md"]
+        I_RULES["<b>⛔ Rules:</b><br/>• Never make decisions<br/>• Follow the plan exactly<br/>• Verify before claiming done<br/>• No 'while I'm here' additions"]
+        I_STEPS["<b>Steps:</b><br/>1. Check – Verify plan exists, tests fail<br/>2. Branch – Create feature/fix branch<br/>3. Build – Write code to pass tests (GREEN)<br/>4. Verify – Run ALL tests, linter, build<br/>5. Update – Mark items complete in WORK.md<br/>6. Commit – Save working code"]
+        I_TOOLS["<b>Tools:</b><br/>/fz-implement, Read, Edit, Write,<br/>Bash, git"]
+    end
+
+    subgraph DOCUMENT["📝 DOCUMENT — Central Hub"]
+        direction TB
+        DOC_VERB["<b>Verb:</b> Record + Capture"]
+        DOC_DESC["<b>Description:</b><br/>Preserving what was built"]
+        DOC_OUTPUT["<b>Output:</b><br/>• Updated docs (README, API, guides)<br/>• Changelog entry<br/>• Knowledge in CLAUDE.md"]
+        DOC_RULES["<b>⛔ Rules:</b><br/>• Never change functionality<br/>• Document what was actually built<br/>• Capture learnings for future<br/>• WORK.md is the central hub"]
+        DOC_STEPS["<b>Steps:</b><br/>1. Identify – What was built? What changed?<br/>2. Update – README, API docs, user guides<br/>3. Changelog – Add entry describing change<br/>4. Learnings – Capture insights in CLAUDE.md<br/>5. Commit – Save documentation"]
+        DOC_TOOLS["<b>Tools:</b><br/>/fz-document, Read, Edit, Write,<br/>Bash, git"]
+        DOC_HUB["<b>📋 WORK.md Hub:</b><br/>All discoveries recorded here.<br/>Tagged with starting phase:<br/>[DISCUSS], [PLAN], or [IMPLEMENT]"]
+    end
+
+    %% Entry
+    START --> DISCUSS
+
+    %% Happy Path
+    DISCUSS -->|"code change needed"| PLAN
+    PLAN -->|"plan approved"| IMPLEMENT
+    IMPLEMENT -->|"tests passing"| DOCUMENT
+    DOCUMENT --> END
+
+    %% No code change needed
+    DISCUSS -->|"no code change needed"| DOCUMENT
+
+    %% Discovery paths (all go to DOCUMENT first)
+    DISCUSS -.->|"discovery"| DOCUMENT
+    PLAN -.->|"discovery"| DOCUMENT
+    IMPLEMENT -.->|"discovery"| DOCUMENT
+
+    %% New work items from DOCUMENT (based on WORK.md tag)
+    DOCUMENT -->|"[DISCUSS] item"| DISCUSS
+    DOCUMENT -->|"[PLAN] item"| PLAN
+    DOCUMENT -->|"[IMPLEMENT] item"| IMPLEMENT
+
+    %% Styling
+    classDef phaseBox fill:#f9f9f9,stroke:#333,stroke-width:2px
+    classDef hubBox fill:#f3e8ff,stroke:#7c3aed,stroke-width:3px
+    classDef startEnd fill:#333,color:#fff,stroke:#333
+
+    class DISCUSS,PLAN,IMPLEMENT phaseBox
+    class DOCUMENT hubBox
+    class START,END startEnd
